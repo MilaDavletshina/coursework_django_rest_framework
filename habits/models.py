@@ -19,6 +19,11 @@ class Habit(models.Model):
         ("six times a week", "шесть раз в неделю"),
     ]
 
+    habit = models.CharField(
+        max_length=255,
+        verbose_name="Привычка",
+        **NULLABLE
+    )
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
