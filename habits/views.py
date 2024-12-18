@@ -34,14 +34,13 @@ class PublicHabitListView(generics.ListAPIView):
     pagination_class = CustomPagination
 
 
-class HabitListView(APIView):
+class HabitsListViewSet(APIView):
     """Список привычек текущего пользователя с пагинацией."""
 
     pagination_class = CustomPagination
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-
         habit = Habit.objects.filter(owner=request.user)
         paginated_habit = self.paginated_habit(habit)
         serializer = HabitSerializer(paginated_habit, manu=True)
