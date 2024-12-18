@@ -5,6 +5,7 @@ from habits.serializers import HabitSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from users.permissions import IsOwner
+from rest_framework.views import APIView
 
 
 class HabitViewSet(ModelViewSet):
@@ -31,3 +32,17 @@ class PublicHabitListView(generics.ListAPIView):
     queryset = Habit.objects.filter(is_published=True)
     serializer_class = HabitSerializer
     pagination_class = CustomPagination
+
+
+class HabitListView(APIView):
+    """Список привычек текущего пользователя с пагинацией."""
+
+    pagination_class = CustomPagination
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+
+        habit = Habit.objects.filter(owner=request.user)
+        paginated_habit = self.paginated_habit(habit)
+        serializer = HabitSerializer(paginated_habit, manu=True)
+        return self.get_paginated_response(serializer.data)
