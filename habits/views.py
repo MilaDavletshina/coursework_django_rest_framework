@@ -4,6 +4,8 @@ from habits.models import Habit
 from habits.serializers import HabitSerializer
 from rest_framework.permissions import IsAuthenticated
 
+from users.permissions import IsOwner
+
 
 class HabitViewSet(ModelViewSet):
     """CRUD модели привычка"""
