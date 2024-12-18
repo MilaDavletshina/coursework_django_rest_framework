@@ -32,6 +32,20 @@ class RelatedOrIsPleasantValidator:
                 raise ValidationError("Связанная привычка должна иметь признак приятной привычки.")
 
 
+class RelatedHabitOrRemunerationValidator:
+    """Проверка использования одновременно связанной привычки и вознаграждения."""
+    def __init__(self, related_habit, remuneration):
+        self.related_habit = related_habit
+        self.remuneration = remuneration
+
+    def __call__(self, value):
+        related_habit_field = value.get(self.related_habit)
+        remuneration_field = value.get(self.remuneration)
+
+        if related_habit_field and remuneration_field:
+            raise ValidationError("Нельзя использовать одновременно связанную привычку и вознаграждение")
+
+
 class TimeLimiterValidator:
     """Проверка времени выполнения привычки."""
     def __init__(self, execution_time):
@@ -44,3 +58,13 @@ class TimeLimiterValidator:
 
 
 class PeriodicityValidator:
+    """Проверка периодичности выполнения."""
+
+    def __init__(self, periodicity):
+        self.periodicity = periodicity
+
+    def __call__(self, value):
+        periodicity_field = value.get(self.periodicity)
+        if periodicity_field == 0:
+            raise ValidationError("За одну неделю необходимо выполнить привычку хотя бы один раз")
+
