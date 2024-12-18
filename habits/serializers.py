@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from habits.models import Habit
-from habits.validators import FillingTheFieldValidator, RelatedOrIsPleasantValidator
+from habits.validators import FillingTheFieldValidator, RelatedOrIsPleasantValidator, TimeLimiterValidator
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -16,4 +16,5 @@ class HabitSerializer(serializers.ModelSerializer):
                 "is_pleasant"
             ),
             RelatedOrIsPleasantValidator("related_habit"),
+            TimeLimiterValidator("execution_time"),
         ]

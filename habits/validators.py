@@ -32,8 +32,8 @@ class RelatedOrIsPleasantValidator:
                 raise ValidationError("Связанная привычка должна иметь признак приятной привычки.")
 
 
-class TimeLimiter:
-
+class TimeLimiterValidator:
+    """Проверка времени выполнения привычки."""
     def __init__(self, execution_time):
         self.execution_time = execution_time
 
@@ -41,3 +41,6 @@ class TimeLimiter:
         time = value.get(self.execution_time)
         if time > timedelta(seconds=120):
             raise ValidationError("Время выполнения должно быть не больше 120 секунд")
+
+
+class PeriodicityValidator:
