@@ -9,15 +9,15 @@ NULLABLE = {"blank": True, "null": True}
 class Habit(models.Model):
     """Модель привычки."""
 
-    PERIODICITY_CHOICES = [
-        ("every day", "каждый день"),
-        ("once a week", "раз в неделю"),
-        ("twice a week", "дважды в неделю"),
-        ("three times a week", "трижды в неделю"),
-        ("four times a week", "четыре раза в неделю"),
-        ("five times a week", "пять раз в неделю"),
-        ("six times a week", "шесть раз в неделю"),
-    ]
+    # PERIODICITY_CHOICES = [
+    #     ("every day", "каждый день"),
+    #     ("once a week", "раз в неделю"),
+    #     ("twice a week", "дважды в неделю"),
+    #     ("three times a week", "трижды в неделю"),
+    #     ("four times a week", "четыре раза в неделю"),
+    #     ("five times a week", "пять раз в неделю"),
+    #     ("six times a week", "шесть раз в неделю"),
+    # ]
 
     habit = models.CharField(
         max_length=255,
@@ -60,12 +60,17 @@ class Habit(models.Model):
         related_name="related_habits",
         **NULLABLE
     )
-    periodicity = models.CharField(
-        max_length=25,
-        choices=PERIODICITY_CHOICES,
+    # periodicity = models.CharField(
+    #     max_length=25,
+    #     choices=PERIODICITY_CHOICES,
+    #     verbose_name="Периодичность выполнения привычки",
+    #     help_text="Укажите переодичность выполнения привычки",
+    #     default="every day",
+    # )
+    periodicity = models.PositiveIntegerField(
+        max_length=1,
         verbose_name="Периодичность выполнения привычки",
-        help_text="Укажите переодичность выполнения привычки",
-        default="every day",
+        help_text="Укажите переодичность выполнения привычки"
     )
     remuneration = models.CharField(
         verbose_name="Вознаграждение после выполнения привычки",
