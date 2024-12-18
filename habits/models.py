@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User
+from config import settings
 from datetime import timedelta
 
 
@@ -25,7 +25,7 @@ class Habit(models.Model):
         **NULLABLE
     )
     owner = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         verbose_name="Автор привычки",
         help_text="Укажите автора привычки",
@@ -68,8 +68,7 @@ class Habit(models.Model):
     #     default="every day",
     # )
     periodicity = models.PositiveIntegerField(
-        max_length=1,
-        verbose_name="Периодичность выполнения привычки",
+        verbose_name="Периодичность выполнения привычки в неделю",
         help_text="Укажите переодичность выполнения привычки"
     )
     remuneration = models.CharField(
