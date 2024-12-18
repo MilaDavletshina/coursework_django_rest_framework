@@ -3,7 +3,7 @@ from habits.models import Habit
 from habits.paginations import CustomPagination
 from habits.serializers import HabitSerializer
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import generics
 from users.permissions import IsOwner
 
 
@@ -15,8 +15,8 @@ class HabitViewSet(ModelViewSet):
     pagination_class = CustomPagination
 
     def get_permissions(self):
-        """Ограничивает доступ модератору"""
-        if self.action != "create":
+        """Ограничивает доступ"""
+        if self.action in ["retrieve", "create", "update", "destroy"]:
             self.permission_classes = [IsOwner]
         return super().get_permissions()
 
@@ -24,3 +24,10 @@ class HabitViewSet(ModelViewSet):
         habit = serializer.save()
         habit.owner = self.request.user
         habit.save()
+
+
+class PublicHabitListView(generics.ListAPIView):
+    """Пользователь может видеть список публичных привычек"""
+    queryset = Habit.objects.filter(is_published=True)
+    serializer_class = HabitSerializer
+    pagination_class = CustomPagination
