@@ -27,7 +27,7 @@ class HabitViewSet(ModelViewSet):
 
 
 class PublicHabitListView(generics.ListAPIView):
-    """Пользователь может видеть список публичных привычек"""
+    """Список публичных привычек"""
     queryset = Habit.objects.filter(is_published=True)
     serializer_class = HabitSerializer
     pagination_class = CustomPagination
