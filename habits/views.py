@@ -46,13 +46,13 @@ class HabitViewSet(ModelViewSet):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
     pagination_class = CustomPagination
 
     def get_permissions(self):
         """Ограничивает доступ"""
         if self.action in ["retrieve", "create", "update", "destroy"]:
-            self.permission_classes = [IsOwner]
+            self.permission_classes = [IsOwner | IsAuthenticated,]
         return super().get_permissions()
 
     def perform_create(self, serializer):
