@@ -1,7 +1,8 @@
-from django.db import models
-from config import settings
 from datetime import timedelta
 
+from django.db import models
+
+from config import settings
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -19,11 +20,7 @@ class Habit(models.Model):
     #     ("six times a week", "шесть раз в неделю"),
     # ]
 
-    habit = models.CharField(
-        max_length=255,
-        verbose_name="Привычка",
-        **NULLABLE
-    )
+    habit = models.CharField(max_length=255, verbose_name="Привычка", **NULLABLE)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -33,9 +30,7 @@ class Habit(models.Model):
         **NULLABLE
     )
     place = models.CharField(
-        max_length=255,
-        verbose_name="Место выполнения привычки",
-        **NULLABLE
+        max_length=255, verbose_name="Место выполнения привычки", **NULLABLE
     )
     start_time = models.DateTimeField(
         verbose_name="Время старта",
@@ -69,11 +64,10 @@ class Habit(models.Model):
     # )
     periodicity = models.PositiveIntegerField(
         verbose_name="Периодичность выполнения привычки в неделю",
-        help_text="Укажите переодичность выполнения привычки"
+        help_text="Укажите переодичность выполнения привычки",
     )
     remuneration = models.CharField(
-        verbose_name="Вознаграждение после выполнения привычки",
-        **NULLABLE
+        verbose_name="Вознаграждение после выполнения привычки", **NULLABLE
     )
     execution_time = models.DurationField(
         default=timedelta(seconds=120),

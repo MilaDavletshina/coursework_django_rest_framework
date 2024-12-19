@@ -1,27 +1,21 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
 NULLABLE = {"blank": True, "null": True}
 
 
 class User(AbstractUser):
     """Модель пользователя."""
+
     username = None
     email = models.EmailField(
         unique=True, verbose_name="Почта", help_text="Укажите почту"
     )
     phone = models.CharField(
-        max_length=35,
-        verbose_name="Телефон",
-        help_text="Укажите телефон",
-        **NULLABLE
+        max_length=35, verbose_name="Телефон", help_text="Укажите телефон", **NULLABLE
     )
     tg_nik = models.CharField(
-        max_length=50,
-        verbose_name="TG",
-        help_text="Укажите TG ник",
-        **NULLABLE
+        max_length=50, verbose_name="TG", help_text="Укажите TG ник", **NULLABLE
     )
     avatar = models.ImageField(
         upload_to="users/avatars",
