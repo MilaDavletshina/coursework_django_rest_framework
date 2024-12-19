@@ -1,7 +1,7 @@
 from users.models import User
 from users.serializers import UserSerializer
-from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny, IsAdminUser
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
@@ -21,12 +21,17 @@ from drf_yasg.utils import swagger_auto_schema
 @method_decorator(name='destroy', decorator=swagger_auto_schema(
     operation_description="Контроллер для удаления пользователя"
 ))
-class UserCreateAPIView(CreateAPIView):
+class UserViewSet(viewsets.ModelViewSet):
     """CRUD для регистрации пользователя."""
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = (AllowAny,)
+        return super().get_permissions()
 
     def perform_create(self, serializer):
         user = serializer.save(is_active=True)
