@@ -6,8 +6,25 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from users.permissions import IsOwner
 from rest_framework.views import APIView
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="Контроллер для получения списка всех привычек"
+))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(
+    operation_description="Контроллер для получения конкретной привычки"
+))
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Контроллер для создания привычки"
+))
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    operation_description="Контроллер для обновления привычки"
+))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(
+    operation_description="Контроллер для удаления привычки"
+))
 class HabitViewSet(ModelViewSet):
     """CRUD модели привычка"""
     queryset = Habit.objects.all()
