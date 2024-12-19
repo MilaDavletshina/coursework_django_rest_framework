@@ -129,3 +129,6 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 #         "schedule": timedelta(days=1),
 #     },
 # }
+
+TELEGRAM_URL = os.getenv('TELEGRAM_URL')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
