@@ -142,3 +142,9 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+
+CORS_ALLOWED_ORIGINS = ['*',] # Замените на адрес вашего фронтенд-сервера
+CSRF_TRUSTED_ORIGINS = ['https://read-and-write.example.com',  # Замените на адрес вашего фронтенд-сервера
+                        'http://127.0.0.1:8000/', # адрес бэкенд-сервера
+                        ]
+CORS_ALLOW_ALL_ORIGINS = False
