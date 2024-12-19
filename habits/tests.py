@@ -5,7 +5,7 @@ from django.urls import reverse
 from rest_framework import status
 
 
-class CourseTestCase(APITestCase):
+class HabitTestCase(APITestCase):
     """Тестирование привычки."""
 
     def setUp(self):
