@@ -42,7 +42,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
     def get_permissions(self):
         if self.action == "create":
