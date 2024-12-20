@@ -1,7 +1,8 @@
-from rest_framework.test import APITestCase
-from users.models import User
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APITestCase
+
+from users.models import User
 
 
 class UserTestCase(APITestCase):
@@ -14,7 +15,7 @@ class UserTestCase(APITestCase):
             password="123qwe",
             phone="89999999999",
             tg_nik="test",
-            tg_chat_id="test"
+            tg_chat_id="test",
         )
         self.client.force_authenticate(user=self.user)
         self.assertIsNotNone(self.user.pk)
@@ -27,7 +28,7 @@ class UserTestCase(APITestCase):
             "password": "test123",
             "phone": "test",
             "tg_nik": "test",
-            "tg_chat_id": "12345"
+            "tg_chat_id": "12345",
         }
         response = self.client.post(url, data)
         # print(response.json())

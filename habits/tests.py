@@ -1,8 +1,9 @@
-from rest_framework.test import APITestCase
-from users.models import User
-from habits.models import Habit
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APITestCase
+
+from habits.models import Habit
+from users.models import User
 
 
 class HabitTestCase(APITestCase):
@@ -20,7 +21,7 @@ class HabitTestCase(APITestCase):
             periodicity=1,
             execution_time="00:00:60",
             is_published=True,
-            owner=self.user
+            owner=self.user,
         )
         self.client.force_authenticate(user=self.user)
 
@@ -93,9 +94,9 @@ class HabitTestCase(APITestCase):
                     "execution_time": "00:01:00",
                     "is_published": True,
                     "owner": 1,
-                    "related_habit": None
+                    "related_habit": None,
                 }
-            ]
+            ],
         }
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data, result)
