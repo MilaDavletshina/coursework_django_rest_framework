@@ -65,7 +65,7 @@ class TimeLimiterValidator:
 
     def __call__(self, value):
         time = value.get(self.execution_time)
-        if time > timedelta(seconds=120):
+        if time is not None and time > timedelta(seconds=120):
             raise ValidationError("Время выполнения должно быть не больше 120 секунд")
 
 
