@@ -15,7 +15,7 @@ class HabitTestCase(APITestCase):
         self.habit = Habit.objects.create(
             habit="Go out",
             place="Restaurant",
-            start_time="2024-12-18T10:54:49Z",
+            start_time="2025-01-19T10:54:49Z",
             action="To go out",
             is_pleasant=True,
             periodicity=1,
@@ -55,7 +55,7 @@ class HabitTestCase(APITestCase):
 
     def test_habit_update(self):
         """Тест на обновление привычки."""
-        url = reverse("habits:habit-list", args=(self.habit.pk,))
+        url = reverse("habits:habit-detail", args=(self.habit.pk,))
         data = {"habit": "update test"}
         response = self.client.patch(url, data)
         # print(response.json())
@@ -83,20 +83,21 @@ class HabitTestCase(APITestCase):
             "previous": None,
             "results": [
                 {
-                    "id": 1,
+                    "id": 4,
                     "habit": "Go out",
                     "place": "Restaurant",
-                    "start_time": "2024-12-18T10:54:49Z",
+                    "start_time": "2025-01-19T10:54:49Z",
                     "action": "To go out",
                     "is_pleasant": True,
                     "periodicity": 1,
                     "remuneration": None,
                     "execution_time": "00:01:00",
                     "is_published": True,
-                    "owner": 1,
+                    "owner": 3,
                     "related_habit": None,
                 }
             ],
         }
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data, result)
+        # print(data)
